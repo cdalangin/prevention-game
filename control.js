@@ -15,23 +15,13 @@ img.onload = function () {
 }
 img.src = "./assets/buildings.jpg";
 
-// sprite source
+/*----- sprite sources -----*/
 var spriteReady = false;
 var sprite = new Image();
 sprite.onload = function () {
 	spriteReady = true;
 }
 sprite.src = "./assets/sprite3.png";
-
-// mask source
-var mask = new Image();
-mask.src = "./assets/mask.png";
-//tp source
-var tp = new Image();
-tp.src = "./assets/tp.png"
-//spray source
-var spray = new Image();
-spray.src = "./assets/spray.png"
 //masked sprite
 var sprmask = new Image();
 sprmask.src = "./assets/SPRITE6.png"
@@ -42,7 +32,25 @@ sprcrouch.src = "./assets/SPRITE7.png"
 var sprmcrouch = new Image();
 sprmcrouch.src = "./assets/SPRITE8.png"
 
+
+/*----- powerups sources -----*/
+// mask source
+var mask = new Image();
+mask.src = "./assets/mask.png";
+//tp source
+var tp = new Image();
+tp.src = "./assets/tp.png"
+//spray source
+var spray = new Image();
+spray.src = "./assets/spray.png"
+//spray source
+var sanitizer = new Image();
+sanitizer.src = "./assets/sanitizer.png"
+
 enemies = [];
+powers = [];
+
+counter = 0;
 
 // drawing the canvas
 
@@ -109,8 +117,7 @@ var update = function (modifier) { // modifier is about 0.017
 		character.y = 290
 	}
 
-
-	if (fmask.x == 120 && character.y >= 200) {
+	if (smallItems.x == 120 || bigItems.x == 120 && character.y >= 200) {
 		character.masked = true
 	}
 
@@ -132,43 +139,44 @@ var update = function (modifier) { // modifier is about 0.017
 		}
 	}
 
+
+
 	// window.requestAnimationFrame(player);
 
 }
 
-/* This doesn't do anything yet 
-var PowerUp = function () {
-	this.position = {
-		x: 1360,
-		y: 350
-	};
-
-	this.direction = {
-		x: -1,
-		y: 0
-	};
-
-	this.speed = 2;
-}
-
-*/
-
-fmask = {
+smallItems = {
 	height: 60,
 	width: 60,
 	x: 1360,
 	y: 370
 };
 
+bigItems = {
+	height: 100,
+	width: 100,
+	x: 1360,
+	y: 330
+};
+
+
+// Randomizes the objects that appear
+// var listOfItems = [mask, spray, sanitizer, tp]
+// var obj = listOfItems[Math.floor(Math.random() * listOfItems.length)]
 
 function facemask() {
-	ctx.drawImage(mask, fmask.x, fmask.y, fmask.width, fmask.height)
-	fmask.x -= scrollSpeed
-	// if (fmask.x == 120 && character.y >= ) {
-	// 	ctx.drawImage(sprmask, character.x, character.y, character.width, character.height)
-	// }
+	ctx.drawImage(mask, smallItems.x, smallItems.y, smallItems.width, smallItems.height)
+	smallItems.x -= scrollSpeed
 
-	// window.requestAnimationFrame(facemask);
+	/* else {
+		ctx.drawImage(obj, bigItems.x, bigItems.y, bigItems.width, bigItems.height)
+		bigItems.x -= scrollSpeed
+	}
+	if (character.masked == true) {
+		ctx.drawImage(sprmask, character.x, character.y, character.width, character.height)
+	}
+
+	window.requestAnimationFrame(facemask); */
 }
 
 var render = function () {
